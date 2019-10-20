@@ -16,13 +16,22 @@ Pracownicy
 
 Artykuły
 
-| id | nazwa                        | cena | id_koloru |
-|----|------------------------------|------|-----------|
-| 1  | zeszyt a4 80 kartek w kratkę | 230  | 1         |
-| 2  | blok rysunkowy               | 220  | 2         |
-| 3  | długopis czarny              | 75   | 3         |
-| 4  | zeszyt a4 80 kartek w linie  | 320  | 2         |
+| id | nazwa                        | cena | id_koloru | id_typu |
+|----|------------------------------|------|-----------|---------|
+| 1  | zeszyt a4 80 kartek w kratkę | 230  | 1         | 1       |
+| 2  | blok rysunkowy               | 220  | 2         | 3       |
+| 3  | długopis czarny              | 75   | 3         | 2       |
+| 4  | zeszyt a4 80 kartek w linie  | 320  | 2         | 1       |
+| 5  | zeszyt a4 80 kartek w linie  | 320  | 4         | 1       |
+| 6  | zeszyt a4 80 kartek w linie  | 320  | 1         | 1       |
 
+Typy
+
+| id | rodzaj         |
+|----|----------------|
+| 1  | zeszyt         |
+| 2  | długopis       |
+| 3  | blok rysunkowy |
 
 Kolory
 
