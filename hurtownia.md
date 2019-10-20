@@ -1,16 +1,20 @@
 Stanowiska
 
-| id | nazwa       |
-|---:|-------------|
-|  1 | kierownik   |
-|  2 | Wsparcie IT |
+| id | nazwa           |
+|---:|-----------------|
+|  1 | kierownik       |
+|  2 | Wsparcie IT     |
+|  3 | Obsługa klienta |
 
 Pracownicy
 
-| id | imie       | nazwisko | id_stanowiska |
-|---:|------------|----------|--------------:|
-|  1 | Jarosław   | Rymut    |             1 |
-|  2 | Małgorzata | Gwinner  |             2 |
+| id | imie      | nazwisko         | id_stanowiska |
+|---:|-----------|------------------|--------------:|
+|  1 | Jarosław  | Rymut            |             1 |
+|  2 | Stanisław | Lem              |             2 |
+|  3 | Jacek     | Dukaj            |             2 |
+|  4 | Wojciech  | Orliński         |             3 |
+|  5 | Adam      | Wiśniewski-Snerg |             3 |
 
 --------------------
 
