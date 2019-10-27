@@ -1,5 +1,6 @@
 # ALTER DATABASE (SELECT DATABASE()) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8_unicode_ci;
 
+DROP TABLE IF EXISTS `Stanowiska`;
 CREATE TABLE `Stanowiska` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`nazwa` VARCHAR(255) NOT NULL,
@@ -7,6 +8,7 @@ CREATE TABLE `Stanowiska` (
 	PRIMARY KEY (`id`)
 );
 
+DROP TABLE IF EXISTS `Pracownicy`;
 CREATE TABLE `Pracownicy` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`imie` VARCHAR(255) NOT NULL,
@@ -18,6 +20,7 @@ CREATE TABLE `Pracownicy` (
 	FOREIGN KEY (`Stanowiska_id`) REFERENCES `Stanowiska` (`id`)
 );
 
+DROP TABLE IF EXISTS `Produkty`;
 CREATE TABLE `Produkty` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`nazwa` VARCHAR(255) NOT NULL,
@@ -26,6 +29,7 @@ CREATE TABLE `Produkty` (
 	PRIMARY KEY (`id`)
 );
 
+DROP TABLE IF EXISTS `Klienci`;
 CREATE TABLE `Klienci` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`nazwa` VARCHAR(255) NOT NULL,
@@ -34,6 +38,7 @@ CREATE TABLE `Klienci` (
 	PRIMARY KEY (`id`)
 );
 
+DROP TABLE IF EXISTS `Adresy`;
 CREATE TABLE `Adresy` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`adres` VARCHAR(255) NOT NULL,
@@ -44,6 +49,7 @@ CREATE TABLE `Adresy` (
 	FOREIGN KEY (`Klienci_id`) REFERENCES `Klienci` (`id`)
 );
 
+DROP TABLE IF EXISTS `Zamówienia`;
 CREATE TABLE `Zamówienia` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`Klienci_id` INT,
@@ -57,6 +63,7 @@ CREATE TABLE `Zamówienia` (
 	FOREIGN KEY (`Adresy_id`) REFERENCES `Adresy` (`id`)
 );
 
+DROP TABLE IF EXISTS `Zamówienia_produkty`;
 CREATE TABLE `Zamówienia_produkty` (
 	`id` INT AUTO_INCREMENT NOT NULL,
 	`Zamówienia_id` INT,
