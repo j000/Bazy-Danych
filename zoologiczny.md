@@ -150,3 +150,49 @@
         FOREIGN KEY (Zamówienia_id) REFERENCES Zamówienia (id),
         FOREIGN KEY (Produkty_id) REFERENCES Produkty (id)
     );
+
+----------------------------------------
+
+    INSERT INTO Stanowiska VALUES
+    (DEFAULT, 'kierownik'),
+    (DEFAULT, 'Wsparcie IT'),
+    (DEFAULT, 'Obsługa klienta');
+
+    INSERT INTO Pracownicy VALUES
+    (DEFAULT, 'Jarosław', 'Rymut', 1),
+    (DEFAULT, 'Stanisław', 'Lem', 2),
+    (DEFAULT, 'Jacek', 'Dukaj', 2),
+    (DEFAULT, 'Wojciech', 'Orliński', 3),
+    (DEFAULT, 'Adam', 'Wiśniewski-Snerg', 3);
+
+    INSERT INTO Produkty VALUES
+    (DEFAULT, 'Chomik', 500),
+    (DEFAULT, 'Karma dla papug 500g', 2700),
+    (DEFAULT, 'Karma dla kotów 3kg', 1200),
+    (DEFAULT, 'Karma dla rybek 100g', 1300);
+
+    INSERT INTO Klienci VALUES
+    (DEFAULT, 'Dzikie węże sp. z o.o.', '122000000'),
+    (DEFAULT, 'Kocia kawiarnia, '602900000'),
+    (DEFAULT, 'Jan Nowak', '603604605');
+
+    INSERT INTO Adresy VALUES
+    (DEFAULT, 'ul. Niedostępna 6s, Kraków', 1),
+    (DEFAULT, 'ul. Lwia 104, Kraków', 2),
+    (DEFAULT, 'ul. Rozrywka 4, Kraków', 3),
+    (DEFAULT, 'ul. Fajna 8, Kraków', 3);
+
+    INSERT INTO Zamówienia VALUES
+    (DEFAULT, 1, 1, TRUE, TRUE),
+    (DEFAULT, 1, 1, TRUE, FALSE),
+    (DEFAULT, 2, 2, FALSE, FALSE),
+    (DEFAULT, 3, 3, TRUE, TRUE),
+    (DEFAULT, 3, 4, TRUE, FALSE);
+
+    INSERT INTO Zamówienia_produkty VALUES
+    (DEFAULT, 1, 1, 5, 400),
+    (DEFAULT, 2, 1, 8, 450),
+    (DEFAULT, 3, 3, 1, 1200),
+    (DEFAULT, 4, 4, 2, 1300),
+    (DEFAULT, 4, 2, 1, 2700),
+    (DEFAULT, 5, 2, 1, 2700);
