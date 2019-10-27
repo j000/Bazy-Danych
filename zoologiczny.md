@@ -69,8 +69,8 @@
 |  5 |             4 |           2 |     1 | 2700 |
 |  6 |             5 |           2 |     1 | 2700 |
 
----------
 */
+----------------------------------------
     /* ALTER DATABASE (SELECT DATABASE()) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8_unicode_ci; */
 
     DROP TABLE IF EXISTS `Stanowiska`;
