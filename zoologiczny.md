@@ -60,22 +60,31 @@
 
 ### Zamówienia_produkty ###
 
-| id | Zamówienia.id | Produkty.id | ilość | cena |
-|---:|--------------:|------------:|------:|-----:|
-|  1 |             1 |           1 |     5 |  400 |
-|  2 |             2 |           1 |     8 |  450 |
-|  3 |             3 |           3 |     1 | 1200 |
-|  4 |             4 |           4 |     2 | 1300 |
-|  5 |             4 |           2 |     1 | 2700 |
-|  6 |             5 |           2 |     1 | 2700 |
+| id | Zamówienia.id | Produkty.id | ilość |
+|---:|--------------:|------------:|------:|
+|  1 |             1 |           1 |     5 |
+|  2 |             2 |           1 |     8 |
+|  3 |             3 |           3 |     1 |
+|  4 |             4 |           4 |     2 |
+|  5 |             4 |           2 |     1 |
+|  6 |             5 |           2 |     1 |
 
 */
 
-----------------------------------------
+-- ------------------
 
-    /* ALTER DATABASE (SELECT DATABASE()) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8_unicode_ci; */
+    ALTER DATABASE DB_RYMUT DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
+	USE DB_RYMUT;
 
+    DROP TABLE IF EXISTS Pracownicy;
     DROP TABLE IF EXISTS Stanowiska;
+
+    DROP TABLE IF EXISTS Zamówienia_produkty;
+    DROP TABLE IF EXISTS Produkty;
+    DROP TABLE IF EXISTS Zamówienia;
+    DROP TABLE IF EXISTS Adresy;
+    DROP TABLE IF EXISTS Klienci;
+
     CREATE TABLE Stanowiska (
         id INT AUTO_INCREMENT NOT NULL,
         nazwa VARCHAR(255) NOT NULL,
@@ -83,7 +92,6 @@
         PRIMARY KEY (id)
     );
 
-    DROP TABLE IF EXISTS Pracownicy;
     CREATE TABLE Pracownicy (
         id INT AUTO_INCREMENT NOT NULL,
         imie VARCHAR(255) NOT NULL,
@@ -95,7 +103,6 @@
         FOREIGN KEY (Stanowiska_id) REFERENCES Stanowiska (id)
     );
 
-    DROP TABLE IF EXISTS Produkty;
     CREATE TABLE Produkty (
         id INT AUTO_INCREMENT NOT NULL,
         nazwa VARCHAR(255) NOT NULL,
@@ -104,7 +111,6 @@
         PRIMARY KEY (id)
     );
 
-    DROP TABLE IF EXISTS Klienci;
     CREATE TABLE Klienci (
         id INT AUTO_INCREMENT NOT NULL,
         nazwa VARCHAR(255) NOT NULL,
@@ -113,7 +119,6 @@
         PRIMARY KEY (id)
     );
 
-    DROP TABLE IF EXISTS Adresy;
     CREATE TABLE Adresy (
         id INT AUTO_INCREMENT NOT NULL,
         adres VARCHAR(255) NOT NULL,
@@ -124,7 +129,6 @@
         FOREIGN KEY (Klienci_id) REFERENCES Klienci (id)
     );
 
-    DROP TABLE IF EXISTS Zamówienia;
     CREATE TABLE Zamówienia (
         id INT AUTO_INCREMENT NOT NULL,
         Klienci_id INT,
@@ -138,7 +142,6 @@
         FOREIGN KEY (Adresy_id) REFERENCES Adresy (id)
     );
 
-    DROP TABLE IF EXISTS Zamówienia_produkty;
     CREATE TABLE Zamówienia_produkty (
         id INT AUTO_INCREMENT NOT NULL,
         Zamówienia_id INT,
@@ -151,7 +154,7 @@
         FOREIGN KEY (Produkty_id) REFERENCES Produkty (id)
     );
 
-----------------------------------------
+-- ------------------
 
     INSERT INTO Stanowiska VALUES
     (DEFAULT, 'kierownik'),
@@ -173,7 +176,7 @@
 
     INSERT INTO Klienci VALUES
     (DEFAULT, 'Dzikie węże sp. z o.o.', '122000000'),
-    (DEFAULT, 'Kocia kawiarnia, '602900000'),
+    (DEFAULT, 'Kocia kawiarnia', '602900000'),
     (DEFAULT, 'Jan Nowak', '603604605');
 
     INSERT INTO Adresy VALUES
@@ -190,9 +193,9 @@
     (DEFAULT, 3, 4, TRUE, FALSE);
 
     INSERT INTO Zamówienia_produkty VALUES
-    (DEFAULT, 1, 1, 5, 400),
-    (DEFAULT, 2, 1, 8, 450),
-    (DEFAULT, 3, 3, 1, 1200),
-    (DEFAULT, 4, 4, 2, 1300),
-    (DEFAULT, 4, 2, 1, 2700),
-    (DEFAULT, 5, 2, 1, 2700);
+    (DEFAULT, 1, 1, 5),
+    (DEFAULT, 2, 1, 8),
+    (DEFAULT, 3, 3, 1),
+    (DEFAULT, 4, 4, 2),
+    (DEFAULT, 4, 2, 1),
+    (DEFAULT, 5, 2, 1);
