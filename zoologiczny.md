@@ -10,7 +10,7 @@
 
 ### Pracownicy ###
 
-| id | imie      | nazwisko         | Stanowiska.id |
+| id | imie      | nazwisko         | Stanowiska_id |
 |---:|-----------|------------------|--------------:|
 |  1 | Jarosław  | Rymut            |             1 |
 |  2 | Stanisław | Lem              |             2 |
@@ -41,7 +41,7 @@
 
 ### Adresy ###
 
-| id | adres                      | Klienci.id |
+| id | adres                      | Klienci_id |
 |---:|----------------------------|-----------:|
 |  1 | ul. Niedostępna 6s, Kraków |          1 |
 |  2 | ul. Lwia 104, Kraków       |          2 |
@@ -50,7 +50,7 @@
 
 ### Zamówienia ###
 
-| id | Klienci.id | Adresy.id | czy_zapłacone | czy_wysłane |
+| id | Klienci_id | Adresy_id | czy_zapłacone | czy_wysłane |
 |---:|-----------:|----------:|--------------:|------------:|
 |  1 |          1 |         1 |             1 |           1 |
 |  2 |          1 |         1 |             1 |           0 |
@@ -60,7 +60,7 @@
 
 ### Zamówienia_produkty ###
 
-| id | Zamówienia.id | Produkty.id | ilość |
+| id | Zamówienia_id | Produkty_id | ilość |
 |---:|--------------:|------------:|------:|
 |  1 |             1 |           1 |     5 |
 |  2 |             2 |           1 |     8 |
@@ -254,14 +254,14 @@
 	WHERE LENGTH(nazwisko) > 9;
 
 	-- opłacone, niewysłane zamówenia
-	SELECT Klienci_id,
-		Adresy_id
+	SELECT Klienci_id
+		, Adresy_id
 	FROM Zamówienia
 	WHERE czy_zapłacone AND NOT czy_wysłane;
 
 	-- nieopłacone zamówenia
-	SELECT Klienci_id,
-		Adresy_id
+	SELECT Klienci_id
+		, Adresy_id
 	FROM Zamówienia
 	WHERE NOT czy_zapłacone;
 
@@ -278,7 +278,9 @@
 	WHERE czy_zapłacone AND NOT czy_wysłane;
 
 	-- pracownicy i ich nazwiska
-	SELECT imie, nazwisko, Stanowiska.nazwa
+	SELECT imie
+		, nazwisko
+		, Stanowiska.nazwa
 	FROM Pracownicy
 	INNER JOIN Stanowiska
 		ON Stanowiska.id = Pracownicy.Stanowiska_id;
