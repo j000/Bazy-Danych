@@ -74,7 +74,7 @@
 -- ------------------
 
     ALTER DATABASE DB_RYMUT DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci;
-	USE DB_RYMUT;
+    USE DB_RYMUT;
 
     DROP TABLE IF EXISTS Pracownicy;
     DROP TABLE IF EXISTS Stanowiska;
@@ -204,83 +204,85 @@
 -- ------------------
 
     ALTER TABLE Klienci ADD email VARCHAR(255);
-	ALTER TABLE Stanowiska ADD pensja INT;
-	-- Oczywiście, na pracowni korzystamy z archiwalnej wersji MySQL --
-	-- ALTER TABLE Zamówienia RENAME COLUMN czy_zaplacone TO czy_zapłacone;
-	ALTER TABLE Zamówienia CHANGE `czy_zaplacone` `czy_zapłacone` BOOL;
+    ALTER TABLE Stanowiska ADD pensja INT;
+    -- Oczywiście, na pracowni korzystamy z archiwalnej wersji MySQL --
+    -- ALTER TABLE Zamówienia RENAME COLUMN czy_zaplacone TO czy_zapłacone;
+    ALTER TABLE Zamówienia CHANGE `czy_zaplacone` `czy_zapłacone` BOOL;
 
 -- ------------------
 
-	-- tanie produkty
-	SELECT nazwa
-		, cena/100 AS cena
-	FROM Produkty
-	WHERE cena < 2000
-	ORDER BY cena DESC;
+    -- tanie produkty
+    SELECT nazwa
+        , cena/100 AS cena
+    FROM Produkty
+    WHERE cena < 2000
+    ORDER BY cena DESC;
 
-	-- karmy
-	SELECT nazwa
-		, cena/100 AS cena
-	FROM Produkty
-	WHERE nazwa LIKE "Karma%";
+    -- karmy
+    SELECT nazwa
+        , cena/100 AS cena
+    FROM Produkty
+    WHERE nazwa LIKE "Karma%";
 
-	-- kierownicy
-	SELECT imie
-		, nazwisko
-	FROM Pracownicy
-	WHERE Stanowiska_id = 1;
+    -- kierownicy
+    SELECT imie
+        , nazwisko
+    FROM Pracownicy
+    WHERE Stanowiska_id = 1;
 
-	-- stanowiska
-	SELECT nazwa
-		, pensja/100 as pensja
-	FROM Stanowiska;
+    -- stanowiska
+    SELECT nazwa
+        , pensja/100 as pensja
+    FROM Stanowiska;
 
-	-- dobrze płatne stanowiska
-	SELECT nazwa
-		, pensja/100 as pensja
-	FROM Stanowiska
-	WHERE pensja > 1000;
+    -- dobrze płatne stanowiska
+    SELECT nazwa
+        , pensja/100 as pensja
+    FROM Stanowiska
+    WHERE pensja > 1000;
 
-	-- pracownicy o nazwiku na literę L
-	SELECT imie
-		, nazwisko
-	FROM Pracownicy
-	WHERE nazwisko LIKE "L%";
+    -- pracownicy o nazwiku na literę L
+    SELECT imie
+        , nazwisko
+    FROM Pracownicy
+    WHERE nazwisko LIKE "L%";
 
-	-- pracownicy z długimi nazwiskami
-	SELECT imie
-		, nazwisko
-	FROM Pracownicy
-	WHERE LENGTH(nazwisko) > 9;
+    -- pracownicy z długimi nazwiskami
+    SELECT imie
+        , nazwisko
+    FROM Pracownicy
+    WHERE LENGTH(nazwisko) > 9;
 
-	-- opłacone, niewysłane zamówenia
-	SELECT Klienci_id
-		, Adresy_id
-	FROM Zamówienia
-	WHERE czy_zapłacone AND NOT czy_wysłane;
+    -- opłacone, niewysłane zamówenia
+    SELECT Klienci_id
+        , Adresy_id
+    FROM Zamówienia
+    WHERE czy_zapłacone AND NOT czy_wysłane;
 
-	-- nieopłacone zamówenia
-	SELECT Klienci_id
-		, Adresy_id
-	FROM Zamówienia
-	WHERE NOT czy_zapłacone;
+    -- nieopłacone zamówenia
+    SELECT Klienci_id
+        , Adresy_id
+    FROM Zamówienia
+    WHERE NOT czy_zapłacone;
 
-	-- opłacone zamówenia
-	SELECT nazwa
-		, telefon
-		, adres
-		, Zamówienia.id AS id_zamówienia
-	FROM Zamówienia
-	INNER JOIN Klienci
-		ON Klienci_id = Klienci.id
-	INNER JOIN Adresy
-		ON Adresy_id = Adresy.id
-	WHERE czy_zapłacone AND NOT czy_wysłane;
+    -- opłacone zamówenia
+    SELECT nazwa
+        , telefon
+        , adres
+        , Zamówienia.id AS id_zamówienia
+    FROM Zamówienia
+    INNER JOIN Klienci
+        ON Klienci_id = Klienci.id
+    INNER JOIN Adresy
+        ON Adresy_id = Adresy.id
+    WHERE czy_zapłacone AND NOT czy_wysłane;
 
-	-- pracownicy i ich nazwiska
-	SELECT imie
-		, nazwisko
-		, Stanowiska.nazwa
-	FROM Pracownicy
-	INNER JOIN Stanowiska
-		ON Stanowiska.id = Pracownicy.Stanowiska_id;
+    -- pracownicy i ich nazwiska
+    SELECT imie
+        , nazwisko
+        , Stanowiska.nazwa
+    FROM Pracownicy
+    INNER JOIN Stanowiska
+        ON Stanowiska.id = Pracownicy.Stanowiska_id;
+
+    /* vim: set expandtab filetype=mysql: */
