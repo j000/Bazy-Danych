@@ -2,11 +2,11 @@
 
 ### Stanowiska ###
 
-| id | nazwa           |
-|---:|-----------------|
-|  1 | kierownik       |
-|  2 | Wsparcie IT     |
-|  3 | Obsługa klienta |
+| id | nazwa           | pensja |
+|---:|-----------------|-------:|
+|  1 | kierownik       | 487500 |
+|  2 | Wsparcie IT     | 320000 |
+|  3 | Obsługa klienta | 240000 |
 
 ### Pracownicy ###
 
@@ -33,11 +33,11 @@
 
 ### Klienci ###
 
-| id | nazwa                  | telefon   |
-|---:|------------------------|-----------|
-|  1 | Dzikie węże sp. z o.o. | 122000000 |
-|  2 | Kocia kawiarnia        | 602900000 |
-|  3 | Jan Nowak              | 603604605 |
+| id | nazwa                  | telefon   | email                        |
+|---:|------------------------|-----------|------------------------------|
+|  1 | Dzikie węże sp. z o.o. | 122000000 | dzikie@weze.pl               |
+|  2 | Kocia kawiarnia        | 602900000 | kociakawiarnia@hoolimail.com |
+|  3 | Jan Nowak              | 603604605 | jan.nowak@nowaki.com.pl      |
 
 ### Adresy ###
 
@@ -208,6 +208,34 @@
     -- Oczywiście, na pracowni korzystamy z archiwalnej wersji MySQL --
     -- ALTER TABLE Zamówienia RENAME COLUMN czy_zaplacone TO czy_zapłacone;
     ALTER TABLE Zamówienia CHANGE `czy_zaplacone` `czy_zapłacone` BOOL;
+
+    UPDATE Stanowiska
+    SET nazwa = 'Kierownik'
+    WHERE nazwa = 'kierownik';
+
+    UPDATE Stanowiska
+    SET pensja = 487500
+    WHERE nazwa = 'Kierownik';
+
+    UPDATE Stanowiska
+    SET pensja = 320000
+    WHERE nazwa = 'Wsparcie IT';
+
+    UPDATE Stanowiska
+    SET pensja = 240000
+    WHERE nazwa = 'Obsługa klienta';
+
+    UPDATE Klienci
+    SET email = 'dzikie@weze.pl'
+    WHERE id = 1;
+
+    UPDATE Klienci
+    SET email = 'kociakawiarnia@hoolimail.com'
+    WHERE id = 2;
+
+    UPDATE Klienci
+    SET email = 'jan.nowak@nowaki.com.pl'
+    WHERE id = 3;
 
 -- ------------------
 
