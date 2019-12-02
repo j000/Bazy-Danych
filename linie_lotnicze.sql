@@ -591,3 +591,128 @@ BEGIN
 END;;
 
 CALL pokaż_pracowników();;
+
+DELIMITER ;
+
+-- -----------------------------------------------------
+-- Przenieś przyszłe loty w przyszłość
+-- -----------------------------------------------------
+UPDATE Loty
+SET wylot = wylot + INTERVAL 2 MONTH
+WHERE wylot BETWEEN '2019-12-01' AND '2019-12-02';
+
+-- -----------------------------------------------------
+-- funkcja wybierająca kapitana z najmniejszą liczbą godzin
+-- -----------------------------------------------------
+
+DROP FUNCTION IF EXISTS wylatane_minuty;
+
+CREATE FUNCTION wylatane_minuty(id INT)
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+	RETURN (
+		SELECT
+			SUM(czas_lotu)
+		FROM Pracownicy
+		LEFT JOIN Loty_has_Pracownicy
+			USING (Pracownicy_id)
+		LEFT JOIN Loty
+			USING (Loty_id)
+		LEFT JOIN Trasy
+			USING (Trasy_id)
+		WHERE Pracownicy_id = id
+			AND wylot < NOW()
+	);
+
+DROP FUNCTION IF EXISTS wybierz_kapitana;
+
+CREATE FUNCTION wybierz_kapitana()
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+	RETURN(
+		SELECT Pracownicy_id
+		FROM Pracownicy
+		WHERE Stanowiska_id = (
+			SELECT Stanowiska_id
+			FROM Stanowiska
+			WHERE stanowisko = 'Pilot'
+		)
+		ORDER BY wylatane_minuty(Pracownicy_id) ASC
+		LIMIT 1
+	);
+
+SELECT imię, nazwisko FROM Pracownicy WHERE Pracownicy_id = wybierz_kapitana();
+
+-- -----------------------------------------------------
+-- funkcja licząca zysk z lotu
+-- -----------------------------------------------------
+
+DROP FUNCTION IF EXISTS przychod_lotu;
+
+CREATE FUNCTION przychod_lotu(id_lotu INT)
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+	RETURN (
+		SELECT SUM(cena)
+		FROM Bilety
+		WHERE Loty_id = id_lotu
+	);
+
+-- -----------------------------------------------------
+
+DROP FUNCTION IF EXISTS koszt_lotu;
+
+DELIMITER ;;
+
+CREATE FUNCTION koszt_lotu(id_lotu INT)
+RETURNS INT
+DETERMINISTIC
+READS SQL DATA
+BEGIN
+	DECLARE cena_paliwa INT DEFAULT 741;
+	RETURN cena_paliwa * (
+		SELECT CEIL(spalanie * (czas_lotu / 60)) AS paliwo
+		FROM Loty
+		INNER JOIN Samoloty
+			USING (Samoloty_id)
+		INNER JOIN Trasy
+			USING (Trasy_id)
+		WHERE Loty_id = id_lotu
+	);
+END;;
+
+DELIMITER ;
+
+SELECT Loty_id
+	, wylot
+	, KWOTA(koszt_lotu(Loty_id)) AS koszt
+	, KWOTA(przychod_lotu(Loty_id)) AS przychód
+	, KWOTA(przychod_lotu(Loty_id) - koszt_lotu(Loty_id)) AS zysk
+FROM Loty
+WHERE wylot < NOW();
+
+-- -----------------------------------------------------
+-- "funkcja" wypisująca wsystkich pasażerów i klasy lotu
+-- -----------------------------------------------------
+
+DROP PROCEDURE IF EXISTS pasażerowie_lotu;
+
+CREATE PROCEDURE pasażerowie_lotu(id_lotu INT)
+	SELECT imię
+		, nazwisko
+		, klasa
+	FROM Bilety
+	INNER JOIN Pasażerowie
+		USING (Pasażerowie_id)
+	INNER JOIN Klasy
+		USING (Klasy_id)
+	WHERE Loty_id = id_lotu;
+
+CALL pasażerowie_lotu((
+		SELECT Loty_id
+		FROM Loty
+		WHERE wylot = '2019-11-01 10:05'
+));
